@@ -13,6 +13,40 @@
 // You don't have to though: it's perfectly okay to write three separate
 // implementations manually. Venture further only if you're curious.
 
+// `Power` トレイトを定義する。
+// `Rhs`は、ジェネリック型で、デフォルトは `Self` とする。
+pub trait Power<Rhs = Self> {
+    // `power` メソッドを定義する。
+    fn power(self, n: Rhs) -> Self;
+}
+
+// `u32` 型に `Power` トレイトを実装する。
+impl Power for u32 {
+    // デフォルトのジェネリック型は `Self` とする。
+    fn power(self, n: Self) -> Self {
+        // `n` 乗を計算する。
+        self.pow(n)
+    }
+}
+
+// 借用された `u32` 型を受け取る `Power` トレイトの実装を行う。
+impl Power<&u32> for u32 {
+    fn power(self, n: &u32) -> Self {
+        // この時、powerを使うことで、実装を再利用することができる。
+        // この実装は、`u32` 型の値を受け取る実装と同じである。
+        self.power(*n)
+    }
+}
+
+// `u16` 型を受け取る `Power` トレイトを実装する。
+impl Power<u16> for u32 {
+    fn power(self, n: u16) -> Self {
+        // 最初のPowerの実装を再利用するために、`u16` 型を受け取る実装を行う。
+        // この時、`u16` 型を `u32` 型に変換して、再利用する。
+        self.power(n as u32)
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use super::Power;

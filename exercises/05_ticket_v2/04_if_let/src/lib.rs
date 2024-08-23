@@ -8,7 +8,20 @@ impl Shape {
     // TODO: Implement the `radius` method using
     //  either an `if let` or a `let/else`.
     pub fn radius(&self) -> f64 {
-        todo!()
+        // let/else
+        // radiusを取り出す。Circle以外の場合はpanicする。
+        // let Shape::Circle { radius } = &self else {
+        //     panic!("Only `Circle` shapes have a radius");
+        // };
+        // *radius
+
+        // if let
+        // 以下のように書くことも可能
+        if let Shape::Circle { radius } = &self {
+            *radius
+        } else {
+            panic!("Only `Circle` shapes have a radius");
+        }
     }
 }
 

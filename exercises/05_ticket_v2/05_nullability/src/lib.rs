@@ -36,7 +36,13 @@ impl Ticket {
         }
     }
     pub fn assigned_to(&self) -> Option<&String> {
-        todo!()
+        // InProgressの場合はSome(assigned_to)を返す
+        // RustにおいてのOptionはつまりNullableな値を表す
+        // つまり、Some(値)は値がある場合、Noneは値がない場合を表す
+        match &self.status {
+            Status::InProgress { assigned_to } => Some(assigned_to),
+            _ => None,
+        }
     }
 }
 

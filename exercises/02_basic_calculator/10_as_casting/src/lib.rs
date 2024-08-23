@@ -6,7 +6,12 @@ mod tests {
 
     #[test]
     fn u16_to_u32() {
-        let v: u32 = todo!();
+        // コンバートする際は as キーワードを利用する。
+        // この場合は、u16型の値をu32型に変換している。
+        // as の後ろには、変換先の型を指定するのだが、
+        // ここでは型推論を利用するために _ を指定している。
+        // let v = 47u16 as u32; と同じ意味になる。
+        let v: u32 = 47u16 as _;
         assert_eq!(47u16 as u32, v);
     }
 
@@ -24,14 +29,19 @@ mod tests {
         // You could solve this by using exactly the same expression as above,
         // but that would defeat the purpose of the exercise. Instead, use a genuine
         // `i8` value that is equivalent to `255` when converted from `u8`.
-        let y: i8 = todo!();
+
+        // フルビットなので、-1になる。
+        // 勘違いしやすいよね。
+        let y: i8 = -1;
 
         assert_eq!(x, y);
     }
 
     #[test]
     fn bool_to_u8() {
-        let v: u8 = todo!();
+        // bool型は、trueが1、falseが0に変換される。
+        // このテストでは、trueをu8型に変換している。
+        let v: u8 = 1u8;
         assert_eq!(true as u8, v);
     }
 }

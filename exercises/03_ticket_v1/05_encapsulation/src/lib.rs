@@ -34,6 +34,23 @@ pub mod ticket {
         //  - `title` that returns the `title` field.
         //  - `description` that returns the `description` field.
         //  - `status` that returns the `status` field.
+
+        // いわゆるgetterメソッドを追加する
+        // pubを付与することで、外部からアクセス可能になる
+        // Javaのようなイメージだが、これは借用を返す状態である。
+        // 直接渡す方法では、その時点で所有権が移動してしまい、
+        // その後Ticket構造体は利用しないもとを解釈し、解放されてしまう。
+        // そのため、借用を返すことで、Ticket構造体を利用し続けることができる。
+        // このシステムにより、メモリの安全性と効率が向上する。
+        pub fn title(&self) -> &str {
+            &self.title
+        }
+        pub fn description(&self) -> &str {
+            &self.description
+        }
+        pub fn status(&self) -> &str {
+            &self.status
+        }
     }
 }
 

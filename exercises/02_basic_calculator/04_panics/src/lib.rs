@@ -3,6 +3,13 @@
 fn speed(start: u32, end: u32, time_elapsed: u32) -> u32 {
     // TODO: Panic with a custom message if `time_elapsed` is 0
 
+    // 0割り算をした場合にpanicを発生させる
+    // panicはプログラムが異常終了することを意味する
+    // そのため、実用上ではクリティカルなエラーが発生した場合にのみ使用するべき
+    if time_elapsed == 0 {
+        panic!("The journey took no time at all, that's impossible!");
+    }
+
     (end - start) / time_elapsed
 }
 

@@ -8,7 +8,11 @@
 // print both sides of the comparison to the terminal.
 // If the compared type doesn't implement `Debug`, it doesn't know how to represent them!
 
-#[derive(PartialEq)]
+// Debug トレイトは、Rust の型をデバッグ用に表示するためのトレイト。
+// `assert_eq!` は、アサーションが失敗した場合に、比較の両側をターミナルに表示しようとするため、
+// `Ticket` が `Debug` を実装している必要がある。
+// `assert_eq!`は、PartialEqを実装している型に対してのみ使用できる。
+#[derive(PartialEq, Debug)]
 struct Ticket {
     title: String,
     description: String,

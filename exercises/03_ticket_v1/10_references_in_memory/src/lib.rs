@@ -13,16 +13,21 @@ mod tests {
 
     #[test]
     fn u16_ref_size() {
-        assert_eq!(size_of::<&u16>(), todo!());
+        // これはu16型そのものではなく、u16型の参照を表している。
+        // 参照はポインタであり、64bitOSの場合8バイトである。
+        // そのため、u16型の参照は8バイトである。
+        assert_eq!(size_of::<&u16>(), 8);
     }
 
     #[test]
     fn u64_mut_ref_size() {
-        assert_eq!(size_of::<&mut u64>(), todo!());
+        // u64型の可変参照は8バイトである。
+        assert_eq!(size_of::<&mut u64>(), 8);
     }
 
     #[test]
     fn ticket_ref_size() {
-        assert_eq!(size_of::<&Ticket>(), todo!());
+        // Ticket構造体の参照は8バイトである。
+        assert_eq!(size_of::<&Ticket>(), 8);
     }
 }

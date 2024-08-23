@@ -1,6 +1,6 @@
 fn compute(a: u32, b: u32) -> u32 {
     // TODO: change the line below to fix the compiler error and make the tests pass.
-    a + b * 4u8
+    a + b * 4u32 // 計算時に型を一致させる必要がある。(暗黙的型変換は行われない)
 }
 
 #[cfg(test)]

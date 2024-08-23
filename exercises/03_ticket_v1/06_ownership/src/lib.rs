@@ -34,16 +34,19 @@ impl Ticket {
         }
     }
 
-    pub fn title(self) -> String {
-        self.title
+    // 元々借用ではなく実体を返していたが、借用を返すように変更したもの。
+    // &Stringを返しているが、&strのほうがよいかもしれない。
+    //（&StringはStringの参照であり、&strは文字列スライスである）
+    pub fn title(&self) -> &String {
+        &self.title
     }
 
-    pub fn description(self) -> String {
-        self.description
+    pub fn description(&self) -> &String {
+        &self.description
     }
 
-    pub fn status(self) -> String {
-        self.status
+    pub fn status(&self) -> &String {
+        &self.status
     }
 }
 
