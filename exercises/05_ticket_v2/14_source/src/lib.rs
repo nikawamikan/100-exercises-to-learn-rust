@@ -23,6 +23,10 @@ pub enum TicketNewError {
     DescriptionCannotBeEmpty,
     #[error("Description cannot be longer than 500 bytes")]
     DescriptionTooLong,
+    // Statusが文字列からの変換に失敗した場合に呼び出す。
+    // これは例外が投げられた時に例外をラップしてraiseし直す状態に近いもの。
+    #[error("{source}")]
+    InvalidStatus { source: status::ParseStatusError },
 }
 
 #[derive(Debug, PartialEq, Clone)]
@@ -49,11 +53,16 @@ impl Ticket {
 
         // TODO: Parse the status string into a `Status` enum.
 
-        Ok(Ticket {
-            title,
-            description,
-            status,
-        })
+        match Status::try_from(status) {
+            // statusが正常に変換できた場合はTicketを発行する。
+            Ok(status) => Ok(Ticket {
+                title,
+                description,
+                status,
+            }),
+            // statusが正常に変換できなかった場合はTicketNewErrorでラップする形でsourceの例外をraiseするイメージ。
+            Err(err) => Err(TicketNewError::InvalidStatus { source: err }),
+        }
     }
 }
 
