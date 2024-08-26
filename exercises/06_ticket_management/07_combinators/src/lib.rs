@@ -7,6 +7,24 @@ pub struct TicketStore {
     tickets: Vec<Ticket>,
 }
 
+impl TicketStore {
+    fn to_dos(&self) -> Vec<&Ticket> {
+        // 良い感じにticketsをフィルタリングして返す
+        self.tickets
+            // iterを利用してイテレーターを取得
+            .iter()
+            // フィルターを利用してStatus::ToDoのものだけを取得
+            // filter関数では、クロージャーを引数に取り、そのクロージャーがtrueを返す要素だけを取得する
+            // クロージャーととは他の言語でいうところの無名関数のことで、Rustでは||で囲む
+            // `|x| x == 1` と `x => x == 1` は同じ意味
+            .filter(|ticket| ticket.status == Status::ToDo)
+            .collect()
+
+        // TypeScriptでfilter部分を書くとこんな感じ
+        // this.tickets.filter(ticket => ticket.status === Status.ToDo)
+    }
+}
+
 #[derive(Clone, Debug, PartialEq)]
 pub struct Ticket {
     pub title: TicketTitle,
