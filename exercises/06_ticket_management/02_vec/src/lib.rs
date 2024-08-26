@@ -15,7 +15,15 @@ pub fn fibonacci(n: u32) -> u32 {
     //
     // Hint: use a `Vec` to memoize the results you have already calculated
     // so that you don't have to recalculate them several times.
-    todo!()
+    let n = n as usize;
+    let mut fib = vec![0, 1];
+    // nが0または1の場合はループを通らないはず
+    for i in 2..=n {
+        // N項目のフィボナッチ数を求める（Nは0から始まる）
+        fib.push(fib[i - 1] + fib[i - 2]);
+    }
+    // N項目のフィボナッチ数を返す
+    fib[n]
 }
 
 #[cfg(test)]
