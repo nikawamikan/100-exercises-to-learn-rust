@@ -7,6 +7,27 @@ pub struct TicketStore {
     tickets: Vec<Ticket>,
 }
 
+impl TicketStore {
+    // fnで直接traitをimplementすることもできる
+    // ここでは IntoIterator トレイトを実装した in_progress メソッドを実装している
+    fn in_progress(&self) -> impl Iterator<Item = &Ticket> {
+        // イテレーターを取得して、filterでStatus::InProgressのものだけを取得している
+        self.tickets
+            .iter()
+            .filter(|ticket| ticket.status == Status::InProgress)
+        // .collect() を呼び出さないため、Vectorを作成せずにイテレーターを返す
+        // これにより、参照(借用)のみ返す事ができ、コピーを作成する必要がない。
+    }
+
+    // collect() を呼び出すことで、Vectorを作成して返すこともできる
+    fn to_dos(&self) -> Vec<&Ticket> {
+        self.tickets
+            .iter()
+            .filter(|ticket| ticket.status == Status::ToDo)
+            .collect()
+    }
+}
+
 #[derive(Clone, Debug, PartialEq)]
 pub struct Ticket {
     pub title: TicketTitle,
